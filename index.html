@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>BMI Calculator</title>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 h-screen text-white flex justify-center items-center">
+  <div class="bg-gray-800 w-max p-4 rounded-md shadow-xl shadow-black">
+    <h1 class="text-2xl font-bold text-center mb-6">BMI Calculator</h1>
+    <div>
+      <input type="email" class="bg-transparent border-2 border-blue-500 rounded-md p-2 outline-none peer w-full focus:border-slate-300 transition-all" placeholder="" id="weight">
+      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Weight</p>
+    </div>
+    <div>
+      <input type="email" class="bg-transparent border-2 border-blue-500 rounded-md p-2 outline-none peer w-full focus:border-slate-300 transition-all" placeholder="" id="height">
+      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Height</p>
+    </div>
+    <div class="flex justify-center gap-4 mb-4">
+      <input type="button" value="Calculate" class="border-2 border-blue-500 p-2 rounded-md cursor-pointer active:scale-95 transition-all hover:bg-blue-500 font-bold" onclick="calculate()">
+      <input type="button" value="Clear" class="border-2 border-red-500 p-2 rounded-md cursor-pointer active:scale-95 transition-all hover:bg-red-500 font-bold" onclick="reset()">
+    </div>
+    <p class="text-center h-7" id="result"></p>
+  </div>
+
+  <script>
+
+    const weightObj = document.getElementById("weight")
+    const heightObj = document.getElementById("height")
+    const resultObj = document.getElementById("result")
+
+    const results = [
+      {min:0, max:18.5, category:"Skinny", emoji:"💀"},
+      {min:18.5, max:24.9, category:"Normal", emoji:"😀"},
+      {min:25, max:29.9, category:"Overweight", emoji:"😑"},
+      {min:30, max:34.9, category:"Fat", emoji:"🤢"},
+      {min:35, max:100, category:"Obese", emoji:"🤮"}
+    ]
+
+    function calculate() {
+      try {
+        let weight = +weightObj.value
+        let height = +heightObj.value / 100
+        let BMI = weight / Math.pow(height, 2)
+        let result = results.find(obj => BMI >= obj.min && BMI < obj.max)
+  
+        console.log(result);
+        resultObj.textContent = result.category + result.emoji
+      } catch (error) {}
+    }
+
+    function reset() {
+      weightObj.value = ""
+      heightObj.value = ""
+      resultObj.textContent = ""
+    }
+
+  </script>
+  
+</body>
+</html>
