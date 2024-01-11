@@ -21,14 +21,16 @@
       <input type="button" value="Calculate" class="border-2 border-blue-500 p-2 rounded-md cursor-pointer active:scale-95 transition-all hover:bg-blue-500 font-bold" onclick="calculate()">
       <input type="button" value="Clear" class="border-2 border-red-500 p-2 rounded-md cursor-pointer active:scale-95 transition-all hover:bg-red-500 font-bold" onclick="reset()">
     </div>
-    <p class="text-center h-7" id="result"></p>
+    <p class="text-center h-6" id="resultBmi"></p>
+    <p class="text-center h-6" id="resultCat"></p>
   </div>
 
   <script>
 
     const weightObj = document.getElementById("weight")
     const heightObj = document.getElementById("height")
-    const resultObj = document.getElementById("result")
+    const resultBmiObj = document.getElementById("resultBmi")
+    const resultCatObj = document.getElementById("resultCat")
 
     const results = [
       {min:0, max:18.5, category:"Skinny", emoji:"💀"},
@@ -39,22 +41,23 @@
     ]
 
     function calculate() {
-      try {
-        let weight = +weightObj.value
-        let height = +heightObj.value / 100
-        let BMI = weight / Math.pow(height, 2)
+      let weight = +weightObj.value
+      let height = +heightObj.value / 100
+      let BMI = weight / Math.pow(height, 2)
+      let result = results.find(obj => BMI >= obj.min && BMI < obj.max)
+      
+      if (isNaN(BMI)) return
 
-        let result = results.find(obj => BMI >= obj.min && BMI < obj.max)
-  
-        console.log(result, BMI);
-        resultObj.textContent = result.category + result.emoji
-      } catch (error) {}
+      console.log(result, BMI);
+      resultBmiObj.textContent = "BMI: " + BMI.toFixed(2)
+      resultCatObj.textContent = "Category: " + result.category + result.emoji
     }
 
     function reset() {
       weightObj.value = ""
       heightObj.value = ""
-      resultObj.textContent = ""
+      resultBmiObj.textContent = ""
+      resultCatObj.textContent = ""
     }
 
   </script>
