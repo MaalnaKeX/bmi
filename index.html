@@ -11,11 +11,11 @@
     <h1 class="text-2xl font-bold text-center mb-6">BMI Calculator</h1>
     <div>
       <input type="email" class="bg-transparent border-2 border-blue-500 rounded-md p-2 outline-none peer w-full focus:border-slate-300 transition-all" placeholder="" id="weight">
-      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Weight</p>
+      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Weight <sub>(kg)</sub></p>
     </div>
     <div>
       <input type="email" class="bg-transparent border-2 border-blue-500 rounded-md p-2 outline-none peer w-full focus:border-slate-300 transition-all" placeholder="" id="height">
-      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Height</p>
+      <p class="relative bottom-16 left-2 font-bold text-blue-500 peer-placeholder-shown:bottom-9 peer-focus:bottom-16 peer-placeholder-shown:text-slate-500 bg-gray-800 transition-all select-none pointer-events-none px-2 w-max">Height <sub>(cm)</sub></p>
     </div>
     <div class="flex justify-center gap-4 mb-4">
       <input type="button" value="Calculate" class="border-2 border-blue-500 p-2 rounded-md cursor-pointer active:scale-95 transition-all hover:bg-blue-500 font-bold" onclick="calculate()">
@@ -35,7 +35,7 @@
       {min:18.5, max:24.9, category:"Normal", emoji:"😀"},
       {min:25, max:29.9, category:"Overweight", emoji:"😑"},
       {min:30, max:34.9, category:"Fat", emoji:"🤢"},
-      {min:35, max:100, category:"Obese", emoji:"🤮"}
+      {min:35, max:10000000, category:"Obese", emoji:"🤮"}
     ]
 
     function calculate() {
@@ -43,9 +43,10 @@
         let weight = +weightObj.value
         let height = +heightObj.value / 100
         let BMI = weight / Math.pow(height, 2)
+
         let result = results.find(obj => BMI >= obj.min && BMI < obj.max)
   
-        console.log(result);
+        console.log(result, BMI);
         resultObj.textContent = result.category + result.emoji
       } catch (error) {}
     }
